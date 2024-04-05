@@ -1,0 +1,24 @@
+<DERExt>
+ <Entity name="Universidad" width="75" isAssociative="0" x="-199" y="-53" subtype="1"/>
+ <Entity name="Facultad" width="60" isAssociative="0" x="84" y="53" subtype="1">
+  <Simple parent="" name="Decano" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="Vicedecano" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="Carreras" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="1" sk="0"/>
+ </Entity>
+ <Entity name="Pabellon" width="60" isAssociative="0" x="-444" y="54" subtype="1">
+  <Simple parent="" name="ID" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="1"/>
+  <Simple parent="" name="Ubicacion" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+ </Entity>
+ <Entity name="Aula" width="40" isAssociative="0" x="-176" y="184" subtype="0">
+  <Simple parent="" name="Reservada" pk="1" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="Lugares" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="1"/>
+  <Simple parent="" name="Tiene_ca?on" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+ </Entity>
+ <Entity name="Comun" width="45" isAssociative="0" x="-184" y="-249" subtype="0">
+  <Simple parent="" name="Nombre" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+ </Entity>
+ <Hierarchy name="Hierarchy Comun" name3="Universidad" name2="Facultad" centerY="-138" name1="Pabellon" typeName=" " cont="4" centerX="-163" exclusive="false" total="true" name0="Comun"/>
+ <RBinary match0="simple" max1="N" onDelete1="restrict" dep="0" min0="0" name="solicita" max0="1" min1="1" rolename="" width="40" firstWeak="0" onUpdate0="restrict" name0="Facultad" name1="Aula" match1="simple" onDelete0="restrict" onUpdate1="restrict" x="116" y="203"/>
+ <RBinary match0="simple" max1="N" onDelete1="restrict" dep="0" min0="1" name="contiene" max0="1" min1="1" rolename="" width="40" firstWeak="0" onUpdate0="restrict" name0="Pabellon" name1="Aula" match1="simple" onDelete0="restrict" onUpdate1="restrict" x="-415" y="200"/>
+ <RTernary match0="simple" max1="N" onDelete1="restrict" min0="1" name="posee" max0="1" min1="1" max2="N" onUpdate2="restrict" width="40" name2="Facultad" onUpdate0="restrict" name0="Universidad" name1="Pabellon" onDelete2="restrict" match1="simple" onDelete0="restrict" onUpdate1="restrict" match2="simple" min2="1" x="-162" y="71"/>
+</DERExt>

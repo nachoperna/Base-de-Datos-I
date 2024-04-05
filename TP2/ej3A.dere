@@ -1,0 +1,18 @@
+<DERExt>
+ <Entity isAssociative="0" x="-427" y="432" width="45" name="Comun" subtype="0">
+  <Simple pk="1" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Nombre" cant3="2"/>
+ </Entity>
+ <Entity isAssociative="0" x="98" y="174" width="45" name="Curso" subtype="1"/>
+ <Entity isAssociative="0" x="-68" y="-55" width="60" name="Profesor" subtype="1">
+  <Simple pk="0" type="integer" sk="1" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="CUIL" cant3="2"/>
+ </Entity>
+ <Entity isAssociative="0" x="-203" y="175" width="70" name="Estudiante" subtype="1">
+  <Simple pk="0" type="integer" sk="1" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Legajo" cant3="2"/>
+ </Entity>
+ <Entity isAssociative="0" x="373" y="175" width="75" name="Correlativa" subtype="1"/>
+ <Hierarchy centerY="394" typeName=" " total="true" name0="Comun" centerX="-407" cont="5" exclusive="false" name1="Curso" name2="Profesor" name3="Estudiante" name4="Correlativa" name="Hierarchy Comun"/>
+ <RBinary onDelete1="restrict" y="194" name1="Curso" match0="simple" onUpdate1="restrict" min0="0" rolename="" name0="Estudiante" x="-6" name="asiste" min1="1" firstWeak="0" max0="N" onUpdate0="restrict" dep="0" max1="N" onDelete0="restrict" width="40" match1="simple"/>
+ <RBinary onDelete1="restrict" y="96" name1="Curso" match0="simple" onUpdate1="restrict" min0="1" rolename="" name0="Profesor" x="30" name="dicta" min1="1" firstWeak="0" max0="1" onUpdate0="restrict" dep="0" max1="N" onDelete0="restrict" width="40" match1="simple"/>
+ <RBinary onDelete1="restrict" y="196" name1="Correlativa" match0="simple" onUpdate1="restrict" min0="1" rolename="" name0="Curso" x="261" name="depende" min1="0" firstWeak="0" max0="N" onUpdate0="restrict" dep="0" max1="2" onDelete0="restrict" width="40" match1="simple"/>
+ <RBinary onDelete1="restrict" y="98" name1="Estudiante" match0="simple" onUpdate1="restrict" min0="1" rolename="" name0="Profesor" x="-106.5" name="dirige" min1="1" firstWeak="0" max0="1" onUpdate0="restrict" dep="0" max1="N" onDelete0="restrict" width="40" match1="simple"/>
+</DERExt>

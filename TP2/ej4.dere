@@ -1,0 +1,39 @@
+<DERExt>
+ <Entity name="Hipodromo" width="65" isAssociative="0" x="-102" y="37" subtype="0">
+  <Simple parent="" name="ID" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="nombre" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="fecha_creacion" pk="0" cant2="0" null="1" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="telefonos" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="1" sk="0"/>
+ </Entity>
+ <Entity name="Stud" width="40" isAssociative="0" x="-473" y="43" subtype="0">
+  <Simple parent="" name="nro_stud" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="nombre" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Compound amount="4" parent="" name="direccion" pk="0" null="0" optionSQL="1" mult="0" sk="0">
+   <Simple parent="direccion" name="calle" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+   <Simple parent="direccion" name="puerta" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+   <Simple parent="direccion" name="piso" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+   <Simple parent="direccion" name="localidad" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  </Compound>
+  <Simple parent="" name="dueño" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="1" sk="0"/>
+ </Entity>
+ <Entity name="Organizador" width="75" isAssociative="0" x="0" y="0" subtype="0">
+  <Simple parent="" name="ID" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="nombre" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+ </Entity>
+ <Entity name="Jinete" width="50" isAssociative="0" x="45" y="-129" subtype="0">
+  <Simple parent="" name="nro_certificado" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="nombre" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="apellido" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="DNI" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="altura" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="peso" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+ </Entity>
+ <Entity name="Caballo" width="55" isAssociative="0" x="-325" y="-145" subtype="0">
+  <Simple parent="" name="ID" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="nombre" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="pelaje" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="peso" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="fecha_nac" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+  <Simple parent="" name="altura" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+ </Entity>
+</DERExt>

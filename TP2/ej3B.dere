@@ -1,24 +1,30 @@
 <DERExt>
- <Entity name="Universidad" width="75" isAssociative="0" x="-199" y="-53" subtype="1"/>
- <Entity name="Facultad" width="60" isAssociative="0" x="84" y="53" subtype="1">
-  <Simple parent="" name="Decano" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
-  <Simple parent="" name="Vicedecano" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
-  <Simple parent="" name="Carreras" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="1" sk="0"/>
+ <Entity x="-157" width="60" name="Facultad" subtype="0" isAssociative="0" y="102">
+  <Simple cant1="20" null="0" optionSQL="1" parent="" type="integer" pk="1" mult="0" name="nombre" cant2="0" sk="0" cant3="2"/>
+  <Simple cant1="20" null="0" optionSQL="1" parent="" type="integer" pk="0" mult="0" name="decano" cant2="0" sk="0" cant3="2"/>
+  <Simple cant1="20" null="0" optionSQL="1" parent="" type="integer" pk="0" mult="0" name="vicedecano" cant2="0" sk="0" cant3="2"/>
+  <Simple cant1="20" null="0" optionSQL="1" parent="" type="integer" pk="0" mult="1" name="carreras" cant2="0" sk="0" cant3="2"/>
  </Entity>
- <Entity name="Pabellon" width="60" isAssociative="0" x="-444" y="54" subtype="1">
-  <Simple parent="" name="ID" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="1"/>
-  <Simple parent="" name="Ubicacion" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+ <Entity x="-155" width="60" name="Pabellon" subtype="0" isAssociative="0" y="208">
+  <Simple cant1="20" null="0" optionSQL="1" parent="" type="integer" pk="1" mult="0" name="ID" cant2="0" sk="0" cant3="2"/>
+  <Simple cant1="20" null="0" optionSQL="1" parent="" type="integer" pk="0" mult="0" name="nombre" cant2="0" sk="0" cant3="2"/>
+  <Simple cant1="20" null="0" optionSQL="1" parent="" type="integer" pk="0" mult="0" name="ubicacion" cant2="0" sk="0" cant3="2"/>
  </Entity>
- <Entity name="Aula" width="40" isAssociative="0" x="-176" y="184" subtype="0">
-  <Simple parent="" name="Reservada" pk="1" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
-  <Simple parent="" name="Lugares" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="1"/>
-  <Simple parent="" name="Tiene_ca?on" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+ <Entity x="-460" width="75" name="Universidad" subtype="0" isAssociative="0" y="115">
+  <Simple cant1="20" null="0" optionSQL="1" parent="" type="integer" pk="1" mult="0" name="nombre" cant2="0" sk="0" cant3="2"/>
  </Entity>
- <Entity name="Comun" width="45" isAssociative="0" x="-184" y="-249" subtype="0">
-  <Simple parent="" name="Nombre" pk="0" cant2="0" null="0" type="integer" cant1="20" cant3="2" optionSQL="1" mult="0" sk="0"/>
+ <Entity x="229" width="60" name="Semestre" subtype="0" isAssociative="0" y="-80">
+  <Simple cant1="20" null="0" optionSQL="1" parent="" type="integer" pk="1" mult="0" name="id_semestre" cant2="0" sk="0" cant3="2"/>
  </Entity>
- <Hierarchy name="Hierarchy Comun" name3="Universidad" name2="Facultad" centerY="-138" name1="Pabellon" typeName=" " cont="4" centerX="-163" exclusive="false" total="true" name0="Comun"/>
- <RBinary match0="simple" max1="N" onDelete1="restrict" dep="0" min0="0" name="solicita" max0="1" min1="1" rolename="" width="40" firstWeak="0" onUpdate0="restrict" name0="Facultad" name1="Aula" match1="simple" onDelete0="restrict" onUpdate1="restrict" x="116" y="203"/>
- <RBinary match0="simple" max1="N" onDelete1="restrict" dep="0" min0="1" name="contiene" max0="1" min1="1" rolename="" width="40" firstWeak="0" onUpdate0="restrict" name0="Pabellon" name1="Aula" match1="simple" onDelete0="restrict" onUpdate1="restrict" x="-415" y="200"/>
- <RTernary match0="simple" max1="N" onDelete1="restrict" min0="1" name="posee" max0="1" min1="1" max2="N" onUpdate2="restrict" width="40" name2="Facultad" onUpdate0="restrict" name0="Universidad" name1="Pabellon" onDelete2="restrict" match1="simple" onDelete0="restrict" onUpdate1="restrict" match2="simple" min2="1" x="-162" y="71"/>
+ <Entity x="237" width="40" name="Aula" subtype="0" isAssociative="0" y="121">
+  <Simple cant1="20" null="0" optionSQL="1" parent="" type="integer" pk="1" mult="0" name="Reservada" cant2="0" sk="0" cant3="2"/>
+  <Simple cant1="20" null="0" optionSQL="1" parent="" type="integer" pk="0" mult="0" name="Lugares" cant2="0" sk="1" cant3="2"/>
+  <Simple cant1="20" null="0" optionSQL="1" parent="" type="integer" pk="0" mult="0" name="Tiene_ca?on" cant2="0" sk="0" cant3="2"/>
+ </Entity>
+ <RBinary name1="Aula" x="258" onDelete1="restrict" match0="simple" onUpdate0="restrict" match1="simple" onDelete0="restrict" firstWeak="0" dep="0" width="40" max1="N" onUpdate1="restrict" y="40.5" min1="1" min0="1" name0="Semestre" max0="N" rolename="" name="solicita"/>
+ <RBinary name1="Semestre" x="-127" onDelete1="restrict" match0="simple" onUpdate0="restrict" match1="simple" onDelete0="restrict" firstWeak="0" dep="0" width="40" max1="1" onUpdate1="restrict" y="-64" min1="1" min0="1" name0="Facultad" max0="1" rolename="" name="en"/>
+ <RBinary name1="Aula" x="76" onDelete1="restrict" match0="simple" onUpdate0="restrict" match1="simple" onDelete0="restrict" firstWeak="0" dep="0" width="60" max1="N" onUpdate1="restrict" y="197" min1="1" min0="1" name0="Pabellon" max0="1" rolename="" name="compartida"/>
+ <RBinary name1="Aula" x="69" onDelete1="restrict" match0="simple" onUpdate0="restrict" match1="simple" onDelete0="restrict" firstWeak="0" dep="0" width="55" max1="N" onUpdate1="restrict" y="108" min1="1" min0="1" name0="Facultad" max0="1" rolename="" name="exclusiva"/>
+ <RBinary name1="Facultad" x="-244" onDelete1="restrict" match0="simple" onUpdate0="restrict" match1="simple" onDelete0="restrict" firstWeak="0" dep="0" width="40" max1="N" onUpdate1="restrict" y="44" min1="1" min0="1" name0="Universidad" max0="1" rolename="" name="has"/>
+ <RBinary name1="Pabellon" x="-273" onDelete1="restrict" match0="simple" onUpdate0="restrict" match1="simple" onDelete0="restrict" firstWeak="0" dep="0" width="40" max1="N" onUpdate1="restrict" y="230" min1="1" min0="1" name0="Universidad" max0="1" rolename="" name="tiene"/>
 </DERExt>

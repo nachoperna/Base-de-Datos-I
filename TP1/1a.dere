@@ -1,0 +1,30 @@
+<DERExt>
+ <Entity strongEnt="INVESTIGADOR" x="-262" weak="1" y="0" width="45" name="TAREA">
+  <Simple pk="1" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Nombre" cant3="2"/>
+  <Simple pk="0" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Horas requeridas" cant3="2"/>
+ </Entity>
+ <Entity isAssociative="0" x="-83" y="107" width="80" name="INVESTIGADOR" subtype="0">
+  <Simple pk="1" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Dni" cant3="2"/>
+  <Simple pk="0" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Nombre" cant3="2"/>
+  <Simple pk="0" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Apellido" cant3="2"/>
+  <Simple pk="0" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Direccion" cant3="2"/>
+  <Simple pk="0" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Fecha Nacimiento" cant3="2"/>
+  <Simple pk="0" type="integer" sk="0" mult="1" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Telefonos" cant3="2"/>
+ </Entity>
+ <Entity isAssociative="0" x="287" y="103" width="70" name="DISCIPLINA" subtype="0">
+  <Simple pk="1" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Codigo" cant3="2"/>
+  <Simple pk="0" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Nombre" cant3="2"/>
+  <Simple pk="0" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Descripcion" cant3="2"/>
+ </Entity>
+ <Entity isAssociative="0" x="20" y="-218" width="60" name="PROYECTO" subtype="0">
+  <Simple pk="1" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Codigo" cant3="2"/>
+  <Simple pk="0" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Nombre" cant3="2"/>
+  <Simple pk="0" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Fecha Inicio" cant3="2"/>
+  <Simple pk="0" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Monto" cant3="2"/>
+  <Simple pk="0" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Fecha Fin" cant3="2"/>
+ </Entity>
+ <RBinary onDelete1="restrict" y="121" name1="DISCIPLINA" match0="simple" onUpdate1="restrict" min0="1" rolename="" name0="INVESTIGADOR" x="162" name="DESEMPE?A" min1="1" firstWeak="0" max0="N" onUpdate0="restrict" dep="0" max1="1" onDelete0="restrict" width="55" match1="simple"/>
+ <RBinary onDelete1="restrict" y="-8" name1="PROYECTO" match0="simple" onUpdate1="restrict" min0="1" rolename="" name0="INVESTIGADOR" x="-26" name="TRABAJA EN" min1="1" firstWeak="0" max0="N" onUpdate0="restrict" dep="0" max1="N" onDelete0="restrict" width="60" match1="simple"/>
+ <RBinary onDelete1="restrict" y="-8" name1="DISCIPLINA" match0="simple" onUpdate1="restrict" min0="1" rolename="" name0="PROYECTO" x="112" name="tiene" min1="1" firstWeak="0" max0="N" onUpdate0="restrict" dep="0" max1="N" onDelete0="restrict" width="40" match1="simple"/>
+ <RBinary onDelete1="restrict" y="125" name1="TAREA" match0="simple" onUpdate1="restrict" min0="1" rolename="" name0="INVESTIGADOR" x="-216" name="realiza" min1="1" firstWeak="0" max0="1" onUpdate0="restrict" dep="1" max1="N" onDelete0="restrict" width="40" match1="simple"/>
+</DERExt>

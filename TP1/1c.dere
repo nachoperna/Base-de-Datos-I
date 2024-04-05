@@ -1,0 +1,20 @@
+<DERExt>
+ <Entity isAssociative="0" x="-289" y="-161" width="40" name="Lote" subtype="0"/>
+ <Entity isAssociative="0" x="-296" y="1" width="55" name="Cultivo" subtype="0"/>
+ <Entity isAssociative="0" x="-300" y="95" width="80" name="Enfermedades" subtype="0">
+  <Simple pk="1" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Nombre" cant3="2"/>
+  <Simple pk="0" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Estrategia" cant3="2"/>
+  <Simple pk="0" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Dosis" cant3="2"/>
+ </Entity>
+ <Entity isAssociative="0" x="5" y="-182" width="45" name="Droga" subtype="0">
+  <Simple pk="1" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Nombre" cant3="2"/>
+  <Simple pk="0" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Cantidad" cant3="2"/>
+ </Entity>
+ <Entity isAssociative="0" x="-5" y="4" width="75" name="Agroquimico" subtype="0">
+  <Simple pk="1" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Identificador" cant3="2"/>
+ </Entity>
+ <RBinary onDelete1="restrict" y="-56" name1="Cultivo" match0="simple" onUpdate1="restrict" min0="1" rolename="" name0="Lote" x="-268" name="posee" min1="1" firstWeak="0" max0="1" onUpdate0="restrict" dep="0" max1="N" onDelete0="restrict" width="40" match1="simple"/>
+ <RBinary onDelete1="restrict" y="25" name1="Agroquimico" match0="simple" onUpdate1="restrict" min0="1" rolename="" name0="Cultivo" x="-117" name="usa" min1="1" firstWeak="0" max0="N" onUpdate0="restrict" dep="0" max1="N" onDelete0="restrict" width="40" match1="simple"/>
+ <RBinary onDelete1="restrict" y="114" name1="Enfermedades" match0="simple" onUpdate1="restrict" min0="1" rolename="" name0="Agroquimico" x="33" name="previene" min1="1" firstWeak="0" max0="N" onUpdate0="restrict" dep="0" max1="N" onDelete0="restrict" width="40" match1="simple"/>
+ <RBinary onDelete1="restrict" y="-64" name1="Droga" match0="simple" onUpdate1="restrict" min0="1" rolename="" name0="Agroquimico" x="27" name="tiene" min1="1" firstWeak="0" max0="N" onUpdate0="restrict" dep="0" max1="N" onDelete0="restrict" width="40" match1="simple"/>
+</DERExt>

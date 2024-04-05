@@ -1,0 +1,19 @@
+<DERExt>
+ <Entity isAssociative="0" x="-40" y="68" width="60" name="Zona zoo" subtype="0">
+  <Simple pk="1" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Nombre" cant3="2"/>
+ </Entity>
+ <Entity isAssociative="0" x="-202" y="-48" width="60" name="Animales" subtype="0">
+  <Simple pk="1" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Nombre" cant3="2"/>
+ </Entity>
+ <Entity isAssociative="0" x="-200" y="-211" width="60" name="Alimento" subtype="0">
+  <Simple pk="1" type="integer" sk="0" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Nombre" cant3="2"/>
+  <Simple pk="0" type="integer" sk="1" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Cantidad" cant3="2"/>
+  <Simple pk="0" type="integer" sk="1" mult="0" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Horario" cant3="2"/>
+ </Entity>
+ <Entity isAssociative="0" x="-40" y="-96" width="60" name="Cuidador" subtype="0">
+  <Simple pk="0" type="integer" sk="0" mult="1" cant2="0" optionSQL="1" null="0" parent="" cant1="20" name="Horario" cant3="2"/>
+ </Entity>
+ <RBinary onDelete1="restrict" y="88" name1="Animales" match0="simple" onUpdate1="restrict" min0="1" rolename="" name0="Zona zoo" x="-173" name="tiene" min1="1" firstWeak="0" max0="1" onUpdate0="restrict" dep="0" max1="N" onDelete0="restrict" width="40" match1="simple"/>
+ <RBinary onDelete1="restrict" y="-109.5" name1="Alimento" match0="simple" onUpdate1="restrict" min0="1" rolename="" name0="Animales" x="-171" name="comen" min1="1" firstWeak="0" max0="N" onUpdate0="restrict" dep="0" max1="N" onDelete0="restrict" width="40" match1="simple"/>
+ <RBinary onDelete1="restrict" y="10" name1="Zona zoo" match0="simple" onUpdate1="restrict" min0="1" rolename="" name0="Cuidador" x="-12" name="trabaja" min1="1" firstWeak="0" max0="1" onUpdate0="restrict" dep="0" max1="N" onDelete0="restrict" width="40" match1="simple"/>
+</DERExt>

@@ -1,0 +1,17 @@
+<DERExt>
+ <Entity subtype="0" x="-127" y="103" name="MEDICO" isAssociative="0" width="50">
+  <Simple sk="0" optionSQL="1" cant2="0" null="0" pk="1" type="integer" cant3="2" name="nro_matricula" mult="0" parent="" cant1="20"/>
+  <Simple sk="0" optionSQL="1" cant2="0" null="0" pk="0" type="integer" cant3="2" name="nombre" mult="0" parent="" cant1="20"/>
+  <Simple sk="0" optionSQL="1" cant2="0" null="0" pk="0" type="integer" cant3="2" name="apellido" mult="0" parent="" cant1="20"/>
+  <Simple sk="0" optionSQL="1" cant2="0" null="0" pk="0" type="integer" cant3="2" name="e_mail" mult="0" parent="" cant1="20"/>
+  <Simple sk="0" optionSQL="1" cant2="0" null="0" pk="0" type="integer" cant3="2" name="fecha_nacimiento" mult="0" parent="" cant1="20"/>
+ </Entity>
+ <Entity subtype="0" x="-295" y="-6" name="ESPECIALIDAD" isAssociative="0" width="80">
+  <Compound sk="0" optionSQL="1" null="0" pk="1" amount="2" name="id_especialidad" mult="0" parent="">
+   <Simple sk="0" optionSQL="1" cant2="0" null="0" pk="0" type="integer" cant3="2" name="tipo_especialidad" mult="0" parent="id_especialidad" cant1="20"/>
+   <Simple sk="0" optionSQL="1" cant2="0" null="0" pk="0" type="integer" cant3="2" name="cod_especialidad" mult="0" parent="id_especialidad" cant1="20"/>
+  </Compound>
+  <Simple sk="0" optionSQL="1" cant2="0" null="0" pk="0" type="integer" cant3="2" name="nombre" mult="0" parent="" cant1="20"/>
+ </Entity>
+ <RBinary match0="simple" min1="0" onUpdate1="restrict" name0="ESPECIALIDAD" match1="simple" min0="1" x="-256" onUpdate0="restrict" dep="0" onDelete0="restrict" onDelete1="restrict" max0="N" rolename="" max1="N" name="posee" name1="MEDICO" y="121" firstWeak="0" width="40"/>
+</DERExt>

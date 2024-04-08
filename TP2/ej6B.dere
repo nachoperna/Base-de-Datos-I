@@ -1,0 +1,24 @@
+<DERExt>
+ <Entity subtype="0" x="166" y="165" name="HISTORIAL" isAssociative="0" width="65">
+  <Compound sk="0" optionSQL="1" null="0" pk="0" amount="2" name="info_centro_salud" mult="0" parent="">
+   <Simple sk="0" optionSQL="1" cant2="0" null="0" pk="0" type="integer" cant3="2" name="codigo" mult="0" parent="info_centro_salud" cant1="20"/>
+   <Simple sk="0" optionSQL="1" cant2="0" null="0" pk="0" type="integer" cant3="2" name="nombre" mult="0" parent="info_centro_salud" cant1="20"/>
+  </Compound>
+  <Compound sk="0" optionSQL="1" null="0" pk="0" amount="2" name="info_medico" mult="0" parent="">
+   <Simple sk="0" optionSQL="1" cant2="0" null="0" pk="0" type="integer" cant3="2" name="matricula" mult="0" parent="info_medico" cant1="20"/>
+   <Simple sk="0" optionSQL="1" cant2="0" null="0" pk="0" type="integer" cant3="2" name="Nombre" mult="0" parent="info_medico" cant1="20"/>
+  </Compound>
+  <Simple sk="0" optionSQL="1" cant2="0" null="0" pk="0" type="integer" cant3="2" name="fecha" mult="0" parent="" cant1="20"/>
+  <Compound sk="0" optionSQL="1" null="0" pk="0" amount="2" name="info_paciente" mult="0" parent="">
+   <Simple sk="0" optionSQL="1" cant2="0" null="0" pk="0" type="integer" cant3="2" name="dni" mult="0" parent="info_paciente" cant1="20"/>
+   <Simple sk="0" optionSQL="1" cant2="0" null="0" pk="0" type="integer" cant3="2" name="Nombre_" mult="0" parent="info_paciente" cant1="20"/>
+  </Compound>
+ </Entity>
+ <Entity subtype="0" x="-375" y="288" name="PACIENTE" isAssociative="0" width="60"/>
+ <Entity subtype="0" x="-156" y="277" name="CENTRO_SALUD" isAssociative="0" width="80"/>
+ <Entity subtype="0" x="-109" y="74" name="MEDICO" isAssociative="0" width="50"/>
+ <Entity subtype="0" x="-166" y="44" name="salud" associationRel="atiende" isAssociative="1" width="122"/>
+ <RBinary match0="simple" min1="1" onUpdate1="restrict" name0="salud" match1="simple" min0="1" x="56" onUpdate0="restrict" dep="0" onDelete0="restrict" onDelete1="restrict" max0="N" rolename="" max1="N" name="informa" name1="HISTORIAL" y="185" firstWeak="0" width="40"/>
+ <RBinary match0="simple" min1="1" onUpdate1="restrict" name0="PACIENTE" match1="simple" min0="1" x="-345" onUpdate0="restrict" dep="0" onDelete0="restrict" onDelete1="restrict" max0="N" rolename="" max1="N" name="asiste" name1="salud" y="186" firstWeak="0" width="40"/>
+ <RBinary match0="simple" min1="0" onUpdate1="restrict" name0="CENTRO_SALUD" match1="simple" min0="0" x="-96" onUpdate0="restrict" dep="0" onDelete0="restrict" onDelete1="restrict" max0="N" rolename="" max1="N" name="atiende" name1="MEDICO" y="184" firstWeak="0" width="40"/>
+</DERExt>

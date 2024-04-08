@@ -1,0 +1,13 @@
+<DERExt>
+ <Entity subtype="1" x="-14" y="299" name="Difusion" isAssociative="0" width="60"/>
+ <Entity subtype="0" x="-104" y="161" name="Persona" isAssociative="0" width="55"/>
+ <Entity subtype="1" x="-196" y="298" name="Usuario" isAssociative="0" width="55"/>
+ <Entity subtype="1" x="-454" y="296" name="Grupo" isAssociative="0" width="45"/>
+ <Entity subtype="0" x="-103" y="-23" name="Mensaje" isAssociative="0" width="55"/>
+ <RBinary match0="simple" min1="1" onUpdate1="restrict" name0="Grupo" match1="simple" min0="0" x="-310" onUpdate0="restrict" dep="0" onDelete0="restrict" onDelete1="restrict" max0="N" rolename="" max1="N" name="tiene" name1="Usuario" y="317" firstWeak="0" width="40"/>
+ <Hierarchy name2="Usuario" exclusive="true" centerX="null" centerY="null" typeName="" name1="Difusion" name="Hierarchy Persona" name0="Persona" total="false" cont="3"/>
+ <RBinary match0="simple" min1="0" onUpdate1="restrict" name0="Persona" match1="simple" min0="1" x="-78" onUpdate0="restrict" dep="0" onDelete0="restrict" onDelete1="restrict" max0="1" rolename="" max1="N" name="es_autor" name1="Mensaje" y="91" firstWeak="0" width="40"/>
+ <RBinary match0="simple" min1="1" onUpdate1="restrict" name0="Mensaje" match1="simple" min0="0" x="-170" onUpdate0="restrict" dep="0" onDelete0="restrict" onDelete1="restrict" max0="N" rolename="" max1="N" name="enviado_a" name1="Usuario" y="144" firstWeak="0" width="55"/>
+ <RBinary match0="simple" min1="1" onUpdate1="restrict" name0="Difusion" match1="simple" min0="0" x="15" onUpdate0="restrict" dep="0" onDelete0="restrict" onDelete1="restrict" max0="N" rolename="" max1="N" name="envia" name1="Mensaje" y="92" firstWeak="0" width="40"/>
+ <RBinary match0="simple" min1="1" onUpdate1="restrict" name0="Mensaje" match1="simple" min0="0" x="-431" onUpdate0="restrict" dep="0" onDelete0="restrict" onDelete1="restrict" max0="N" rolename="" max1="N" name="enviado" name1="Grupo" y="150" firstWeak="0" width="40"/>
+</DERExt>

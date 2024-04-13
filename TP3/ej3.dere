@@ -1,0 +1,22 @@
+<DERExt>
+ <Entity name="COMERCIO" isAssociative="0" width="60" y="123" subtype="0" x="47">
+  <Simple name="id_comercio" optionSQL="1" cant1="20" type="integer" pk="1" sk="0" cant2="0" null="0" mult="0" parent="" cant3="2"/>
+  <Simple name="razon_social" optionSQL="1" cant1="20" type="integer" pk="0" sk="0" cant2="0" null="0" mult="0" parent="" cant3="2"/>
+  <Simple name="telefono" optionSQL="1" cant1="20" type="integer" pk="0" sk="0" cant2="0" null="1" mult="0" parent="" cant3="2"/>
+  <Simple name="direccion" optionSQL="1" cant1="20" type="integer" pk="0" sk="0" cant2="0" null="1" mult="0" parent="" cant3="2"/>
+ </Entity>
+ <Entity name="ARTICULO" isAssociative="0" width="60" y="-32" subtype="0" x="47">
+  <Simple name="id_articulo" optionSQL="1" cant1="20" type="integer" pk="1" sk="0" cant2="0" null="0" mult="0" parent="" cant3="2"/>
+  <Simple name="descripcion" optionSQL="1" cant1="20" type="integer" pk="0" sk="0" cant2="0" null="0" mult="0" parent="" cant3="2"/>
+  <Simple name="color" optionSQL="1" cant1="20" type="integer" pk="0" sk="0" cant2="0" null="0" mult="0" parent="" cant3="2"/>
+  <Simple name="costo" optionSQL="1" cant1="20" type="integer" pk="0" sk="0" cant2="0" null="1" mult="0" parent="" cant3="2"/>
+ </Entity>
+ <Entity name="FABRICA" isAssociative="0" width="55" y="-18" subtype="0" x="-237">
+  <Simple name="id_fabrica" optionSQL="1" cant1="20" type="integer" pk="1" sk="0" cant2="0" null="0" mult="0" parent="" cant3="2"/>
+  <Simple name="razon_social" optionSQL="1" cant1="20" type="integer" pk="0" sk="0" cant2="0" null="0" mult="0" parent="" cant3="2"/>
+  <Simple name="direccion" optionSQL="1" cant1="20" type="integer" pk="0" sk="0" cant2="0" null="1" mult="0" parent="" cant3="2"/>
+ </Entity>
+ <RUnary name="distribuye" onDelete1="restrict" match0="simple" onDelete0="restrict" onUpdate1="restrict" min0="0" max1="N" width="60" rolename="" onUpdate0="restrict" y="238" name0="COMERCIO" match1="simple" min1="0" max0="N" name1="COMERCIO" x="249"/>
+ <RBinary min1="0" onUpdate1="restrict" width="40" dep="0" match1="simple" match0="simple" onUpdate0="restrict" name0="ARTICULO" name="vende" onDelete0="restrict" max1="1" rolename="" y="65.5" x="77" max0="N" name1="COMERCIO" firstWeak="0" onDelete1="restrict" min0="1"/>
+ <RBinary min1="1" onUpdate1="restrict" width="40" dep="0" match1="simple" match0="simple" onUpdate0="restrict" name0="FABRICA" name="produce" onDelete0="restrict" max1="N" rolename="" y="-12" x="-62" max0="N" name1="ARTICULO" firstWeak="0" onDelete1="restrict" min0="0"/>
+</DERExt>

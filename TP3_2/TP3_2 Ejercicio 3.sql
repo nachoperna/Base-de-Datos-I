@@ -1,0 +1,134 @@
+-- Created by Vertabelo (http://vertabelo.com)
+-- Last modification date: 2024-05-02 15:39:45.023
+
+-- tables
+-- Table: DISCIPLINA
+CREATE TABLE DISCIPLINA (
+    id_disciplina int  NOT NULL,
+    nombre_disciplina varchar(20)  NOT NULL,
+    descripcion_disciplina varchar(120)  NOT NULL,
+    CONSTRAINT PK_ID_DISCIPLINA PRIMARY KEY (id_disciplina)
+);
+
+-- Table: INVESTIGADOR
+CREATE TABLE INVESTIGADOR (
+    id_investigador int  NOT NULL,
+    tipo_doc char(3)  NOT NULL,
+    nro_doc int  NOT NULL,
+    nombre varchar(40)  NOT NULL,
+    apellido varchar(40)  NOT NULL,
+    direccion varchar(40)  NOT NULL,
+    fecha_nac date  NOT NULL,
+    telefono varchar(15)  NOT NULL,
+    DISCIPLINA_id_disciplina int  NOT NULL,
+    CONSTRAINT AK_DOC UNIQUE (tipo_doc, nro_doc) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT PK_ID_INVESTIGADOR PRIMARY KEY (id_investigador)
+);
+
+-- Table: PROYECTO
+CREATE TABLE PROYECTO (
+    cod_proyecto int  NOT NULL,
+    nombre_proyecto varchar(40)  NOT NULL,
+    monto decimal(10,2)  NOT NULL,
+    estadio char(3)  NOT NULL,
+    tipo_proy char(1)  NOT NULL,
+    CONSTRAINT PK_PROYECTO PRIMARY KEY (cod_proyecto)
+);
+
+-- Table: PROY_APROB_RECHAZ
+CREATE TABLE PROY_APROB_RECHAZ (
+    PROYECTO_cod_proyecto int  NOT NULL,
+    CONSTRAINT PK_PROY_APROB_RECHAZ PRIMARY KEY (PROYECTO_cod_proyecto)
+);
+
+-- Table: PROY_INIC_FINAL
+CREATE TABLE PROY_INIC_FINAL (
+    PROYECTO_cod_proyecto int  NOT NULL,
+    fecha_inicio date  NOT NULL,
+    fecha_fin date  NULL,
+    INVESTIGADOR_id_investigador int  NOT NULL,
+    CONSTRAINT PK_COD_INIC_FINAL PRIMARY KEY (PROYECTO_cod_proyecto)
+);
+
+-- Table: SABE_REALIZAR
+CREATE TABLE SABE_REALIZAR (
+    INVESTIGADOR_id_investigador int  NOT NULL,
+    TAREA_id_tarea int  NOT NULL,
+    CONSTRAINT PK_SABE_REALIZAR PRIMARY KEY (INVESTIGADOR_id_investigador,TAREA_id_tarea)
+);
+
+-- Table: TAREA
+CREATE TABLE TAREA (
+    id_tarea int  NOT NULL,
+    nombre_tarea varchar(15)  NOT NULL,
+    cant_horas decimal(6,2)  NOT NULL,
+    CONSTRAINT AK_NOMBRE_TAREA UNIQUE (nombre_tarea) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT TP03_EJ03_TAREA_pk PRIMARY KEY (id_tarea)
+);
+
+-- Table: TELEFONO
+CREATE TABLE TELEFONO (
+    INVESTIGADOR_id_investigador int  NOT NULL,
+    nro_telefono int  NOT NULL,
+    CONSTRAINT PK_TELEFONO_INVESTIGADOR PRIMARY KEY (INVESTIGADOR_id_investigador,nro_telefono)
+);
+
+-- foreign keys
+-- Reference: INVESTIGADOR_DISCIPLINA (table: INVESTIGADOR)
+ALTER TABLE INVESTIGADOR ADD CONSTRAINT INVESTIGADOR_DISCIPLINA
+    FOREIGN KEY (DISCIPLINA_id_disciplina)
+    REFERENCES DISCIPLINA (id_disciplina)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: PROY_APROB_RECHAZ_PROYECTO (table: PROY_APROB_RECHAZ)
+ALTER TABLE PROY_APROB_RECHAZ ADD CONSTRAINT PROY_APROB_RECHAZ_PROYECTO
+    FOREIGN KEY (PROYECTO_cod_proyecto)
+    REFERENCES PROYECTO (cod_proyecto)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: PROY_INIC_FINAL_INVESTIGADOR (table: PROY_INIC_FINAL)
+ALTER TABLE PROY_INIC_FINAL ADD CONSTRAINT PROY_INIC_FINAL_INVESTIGADOR
+    FOREIGN KEY (INVESTIGADOR_id_investigador)
+    REFERENCES INVESTIGADOR (id_investigador)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: PROY_INIC_FINAL_PROYECTO (table: PROY_INIC_FINAL)
+ALTER TABLE PROY_INIC_FINAL ADD CONSTRAINT PROY_INIC_FINAL_PROYECTO
+    FOREIGN KEY (PROYECTO_cod_proyecto)
+    REFERENCES PROYECTO (cod_proyecto)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: SABE_REALIZAR_INVESTIGADOR (table: SABE_REALIZAR)
+ALTER TABLE SABE_REALIZAR ADD CONSTRAINT SABE_REALIZAR_INVESTIGADOR
+    FOREIGN KEY (INVESTIGADOR_id_investigador)
+    REFERENCES INVESTIGADOR (id_investigador)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: SABE_REALIZAR_TAREA (table: SABE_REALIZAR)
+ALTER TABLE SABE_REALIZAR ADD CONSTRAINT SABE_REALIZAR_TAREA
+    FOREIGN KEY (TAREA_id_tarea)
+    REFERENCES TAREA (id_tarea)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: TELEFONO_INVESTIGADOR (table: TELEFONO)
+ALTER TABLE TELEFONO ADD CONSTRAINT TELEFONO_INVESTIGADOR
+    FOREIGN KEY (INVESTIGADOR_id_investigador)
+    REFERENCES INVESTIGADOR (id_investigador)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- End of file.
+

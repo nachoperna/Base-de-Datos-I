@@ -1,0 +1,114 @@
+-- Created by Vertabelo (http://vertabelo.com)
+-- Last modification date: 2024-05-02 14:03:06.086
+
+-- tables
+-- Table: CLIENTE
+CREATE TABLE CLIENTE (
+    id_cliente int  NOT NULL,
+    CUIT int  NOT NULL,
+    apellido varchar(30)  NOT NULL,
+    nombre varchar(30)  NOT NULL,
+    calle varchar(30)  NOT NULL,
+    puerta int  NOT NULL,
+    piso int  NOT NULL,
+    e_mail varchar(30)  NULL,
+    telefono int  NOT NULL,
+    CLIENTE_id_cliente int  NULL,
+    CONSTRAINT AK_CLIENTE UNIQUE (CUIT) NOT DEFERRABLE  INITIALLY IMMEDIATE,
+    CONSTRAINT PK_CLIENTE PRIMARY KEY (id_cliente)
+);
+
+-- Table: COMPONE
+CREATE TABLE COMPONE (
+    porcentaje int  NOT NULL,
+    PRODUCTO_QUIMICO_id_prod_quim int  NOT NULL,
+    CONSTRAINT PK_COMPONE PRIMARY KEY (PRODUCTO_QUIMICO_id_prod_quim)
+);
+
+-- Table: ENVIO
+CREATE TABLE ENVIO (
+    nro_envio int  NOT NULL,
+    cantidad int  NOT NULL,
+    peso int  NOT NULL,
+    PRODUCTO_QUIMICO_id_prod_quim int  NOT NULL,
+    CLIENTE_id_cliente int  NOT NULL,
+    CONSTRAINT PK_ENVIO PRIMARY KEY (nro_envio)
+);
+
+-- Table: PQ_LIQUIDO
+CREATE TABLE PQ_LIQUIDO (
+    inflamable char(2)  NOT NULL,
+    tipo_envase varchar(30)  NOT NULL,
+    cond_traslado int  NULL,
+    PRODUCTO_QUIMICO_id_prod_quim int  NOT NULL,
+    CONSTRAINT PK_PQ_LIQUIDO PRIMARY KEY (PRODUCTO_QUIMICO_id_prod_quim)
+);
+
+-- Table: PQ_SOLIDO
+CREATE TABLE PQ_SOLIDO (
+    forma varchar(30)  NOT NULL,
+    empaque_max int  NOT NULL,
+    PRODUCTO_QUIMICO_id_prod_quim int  NOT NULL,
+    CONSTRAINT PK_PQ_SOLIDO PRIMARY KEY (PRODUCTO_QUIMICO_id_prod_quim)
+);
+
+-- Table: PRODUCTO_QUIMICO
+CREATE TABLE PRODUCTO_QUIMICO (
+    id_prod_quim int  NOT NULL,
+    nombre_prod_quim varchar(30)  NOT NULL,
+    formula varchar(50)  NOT NULL,
+    tipo char(1)  NOT NULL,
+    CONSTRAINT PK_PRODUCTO_QUIMICO PRIMARY KEY (id_prod_quim)
+);
+
+-- foreign keys
+-- Reference: CLIENTE_CLIENTE (table: CLIENTE)
+ALTER TABLE CLIENTE ADD CONSTRAINT CLIENTE_CLIENTE
+    FOREIGN KEY (CLIENTE_id_cliente)
+    REFERENCES CLIENTE (id_cliente)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: COMPONE_PRODUCTO_QUIMICO (table: COMPONE)
+ALTER TABLE COMPONE ADD CONSTRAINT COMPONE_PRODUCTO_QUIMICO
+    FOREIGN KEY (PRODUCTO_QUIMICO_id_prod_quim)
+    REFERENCES PRODUCTO_QUIMICO (id_prod_quim)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: ENVIO_CLIENTE (table: ENVIO)
+ALTER TABLE ENVIO ADD CONSTRAINT ENVIO_CLIENTE
+    FOREIGN KEY (CLIENTE_id_cliente)
+    REFERENCES CLIENTE (id_cliente)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: ENVIO_PRODUCTO_QUIMICO (table: ENVIO)
+ALTER TABLE ENVIO ADD CONSTRAINT ENVIO_PRODUCTO_QUIMICO
+    FOREIGN KEY (PRODUCTO_QUIMICO_id_prod_quim)
+    REFERENCES PRODUCTO_QUIMICO (id_prod_quim)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: PQ_LIQUIDO_PRODUCTO_QUIMICO (table: PQ_LIQUIDO)
+ALTER TABLE PQ_LIQUIDO ADD CONSTRAINT PQ_LIQUIDO_PRODUCTO_QUIMICO
+    FOREIGN KEY (PRODUCTO_QUIMICO_id_prod_quim)
+    REFERENCES PRODUCTO_QUIMICO (id_prod_quim)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- Reference: PQ_SOLIDO_PRODUCTO_QUIMICO (table: PQ_SOLIDO)
+ALTER TABLE PQ_SOLIDO ADD CONSTRAINT PQ_SOLIDO_PRODUCTO_QUIMICO
+    FOREIGN KEY (PRODUCTO_QUIMICO_id_prod_quim)
+    REFERENCES PRODUCTO_QUIMICO (id_prod_quim)  
+    NOT DEFERRABLE 
+    INITIALLY IMMEDIATE
+;
+
+-- End of file.
+

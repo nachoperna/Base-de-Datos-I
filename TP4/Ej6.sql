@@ -12,3 +12,14 @@ GROUP BY id_institucion
 ORDER BY COUNT(*);
 
 -- 3. Muestre la fecha de nacimiento del voluntario más joven y del más viejo.
+
+
+-- 4. Considerando los datos históricos de cada voluntario, indique la cantidad de tareas distintas que cada uno ha realizado. 
+SELECT id_tarea, COUNT(*) AS "Cantidad voluntarios"
+FROM "unc_esq_voluntario"."voluntario"
+GROUP BY id_tarea;
+
+-- 5. Se quiere conocer los coordinadores que tienen a su cargo menos de 3 voluntarios dentro de cada institución.
+SELECT id_coordinador, COUNT(*) AS "Cantidad voluntarios"
+FROM "unc_esq_voluntario"."voluntario"
+GROUP BY id_coordinador HAVING COUNT(*) <= 3;

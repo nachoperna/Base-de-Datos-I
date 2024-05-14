@@ -29,4 +29,44 @@ WHERE id_institucion IN
   );
 
 -- 4. Liste en orden alfabético los nombres de los países que nunca han tenido acción de voluntarios (considerando sólo información histórica, no tener en cuenta los voluntarios actuales).
+SELECT nombre_pais, id_pais
+FROM pais
+WHERE id_pais NOT IN 
+(SELECT id_pais FROM direccion) -- si el id_pais no se encuentra dentro de la tabla de direcciones significa que nunca hubo una institucion en ese pais, por lo tanto ningun voluntario 
+ORDER BY nombre_pais;
 
+SELECT nombre_pais, id_pais
+FROM pais
+WHERE id_pais NOT IN 
+(SELECT id_pais FROM direccion WHERE id_direccion NOT IN
+(SELECT id_direccion FROM institucion WHERE id_institucion NOT IN
+(SELECT id_institucion FROM historico)))
+ORDER BY nombre_pais;
+
+-- 5. Indique los datos de las tareas que se han desarrollado históricamente y que no se están desarrollando actualmente.
+SELECT *
+FROM tarea 
+WHERE id_tarea IN 
+(SELECT id_tarea FROM historico)
+AND id_tarea NOT IN
+(SELECT id_tarea FROM voluntario);
+
+-- 6. Liste el id, nombre y máxima cantidad de horas de las tareas que se están ejecutando solo una vez y que actualmente la están realizando voluntarios de la ciudad ‘Munich’. Ordene por id de tarea.
+SELECT id_tarea, nombre_tarea, max_horas
+FROM tarea
+WHERE id_tarea IN 
+(SELECT id_tarea FROM voluntario WHERE id_institucion IN
+(SELECT id_institucion FROM institucion WHERE id_direccion IN 
+(SELECT id_direccion FROM direccion WHERE ciudad = 'Munich')))
+ORDER BY id_tarea;
+
+-- 7. Indique los datos de las instituciones que poseen director, donde históricamente se hayan desarrollado tareas que actualmente las estén ejecutando voluntarios de otras instituciones
+SELECT *
+FROM institucion i
+WHERE id_director IS NOT NULL AND id_institucion IN 
+(SELECT id_institucion FROM historico WHERE id_tarea IN
+(SELECT id_tarea FROM voluntario WHERE id_institucion != i.id_institucion));
+
+-- 8. SELECT *, v.apellido||', '||v.nombre AS "Director"
+FROM institucion i JOIN voluntario v ON v.id_coordinador = i.id_director
+WHERE id_director IS NOT NULL;

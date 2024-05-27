@@ -60,13 +60,14 @@ WHERE id_tarea IN
 (SELECT id_direccion FROM direccion WHERE ciudad = 'Munich')))
 ORDER BY id_tarea;
 
--- 7. Indique los datos de las instituciones que poseen director, donde históricamente se hayan desarrollado tareas que actualmente las estén ejecutando voluntarios de otras instituciones
+-- 7. Indique los datos de las instituciones que poseen director, donde históricamente se hayan desarrollado tareas que actualmente las estén ejecutando voluntarios de otras instituciones.
 SELECT *
 FROM institucion i
 WHERE id_director IS NOT NULL AND id_institucion IN 
 (SELECT id_institucion FROM historico WHERE id_tarea IN
 (SELECT id_tarea FROM voluntario WHERE id_institucion != i.id_institucion));
 
--- 8. SELECT *, v.apellido||', '||v.nombre AS "Director"
+-- 8. Listar los datos completos de todas las instituciones junto con el nombre y apellido de su director.
+SELECT *, v.apellido||', '||v.nombre AS "Director"
 FROM institucion i JOIN voluntario v ON v.id_coordinador = i.id_director
 WHERE id_director IS NOT NULL;

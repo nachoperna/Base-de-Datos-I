@@ -69,5 +69,5 @@ WHERE id_director IS NOT NULL AND id_institucion IN
 
 -- 8. Listar los datos completos de todas las instituciones junto con el nombre y apellido de su director.
 SELECT *, v.apellido||', '||v.nombre AS "Director"
-FROM institucion i JOIN voluntario v ON v.id_coordinador = i.id_director
+FROM institucion i JOIN voluntario v ON v.nro_voluntario = i.id_director
 WHERE id_director IS NOT NULL;

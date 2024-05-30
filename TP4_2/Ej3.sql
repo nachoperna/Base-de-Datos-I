@@ -37,10 +37,17 @@
       ORDER BY apellido;
       
 -- 4. Indique los voluntarios que históricamente hayan trabajado para todas las instituciones, ordenando el resultado por nombre de voluntario.
-      SELECT nro_voluntario, id_institucion FROM historico INTERSECT
-      SELECT nro_voluntario, id_institucion FROM voluntario
-      ORDER BY nro_voluntario;
-      -- creo que mal hecho
+      SELECT v.*
+      FROM voluntario v
+      WHERE NOT EXISTS(
+            SELECT i.id_institucion
+            FROM institucion i
+            EXCEPT
+            SELECT 1
+            FROM historico h
+            WHERE v.id_institucion = h.id_institucion
+      )
+      ORDER BY v.nombre;
 
 -- 5. Determine cuáles tareas se están ejecutando en todas las instituciones.
       

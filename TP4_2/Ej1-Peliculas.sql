@@ -39,13 +39,11 @@ jefe_departamento IN
 -- no retorna resultados
 
 -- 14. Indique los departamentos (nombre e identificador completo) que tienen más de 3 empleados con tareas con sueldo mínimo menor a 6000. Muestre el resultado ordenado por distribuidor
-SELECT d.nombre, d.id_departamento
-FROM departamento d JOIN distribuidor d1 ON d.id_distribuidor = d1.id_distribuidor
-GROUP BY d.nombre, d.id_departamento, d1.nombre HAVING COUNT(d.id_departamento IN
-(SELECT id_departamento FROM empleado WHERE id_tarea IN
-(SELECT id_tarea FROM tarea WHERE sueldo_minimo < 6000))) > 3
-ORDER BY d1.nombre, d.nombre;
--- no muestra resultados
+SELECT d.nombre, d.id_departamento, d.id_distribuidor
+  FROM departamento d JOIN empleado e
+  USING(id_departamento) JOIN tarea t ON e.id_tarea = t.id_tarea AND t.sueldo_minimo < 6000
+  GROUP BY e.id_departamento, d.nombre, d.id_departamento, d.id_distribuidor HAVING COUNT(*) > 3
+  ORDER BY d.id_distribuidor;
 
 -- 15. Liste los datos de los departamentos en los que trabajan menos del 10 % de los empleados que hay registrados
 SELECT *

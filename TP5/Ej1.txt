@@ -1,0 +1,69 @@
+// A. Considerando que las tablas ya se encuentran creadas con sus correspondientes PRIMARY KEY declaradas, escriba las sentencias de alteración de tabla que incorporan las RIRs 
+ALTER TABLE TRABAJA_EN
+		ADD CONSTRAINT FK_R1 FOREIGN KEY (TipoE, NroE) REFERENCES EMPLEADO (TipoE, NroE)
+		ON DELETE CASCADE
+		ON UPDATE RESTRICT;
+	
+	ALTER TABLE TRABAJA_EN
+		ADD CONSTRAINT FK_R2 FOREIGN KEY (IdProy) REFERENCES PROYECTO (IdProy) 
+		ON DELETE RESTRICT
+		ON UPDATE CASCADE;
+			
+	ALTER TABLE AUSPICIO 
+		ADD CONSTRAINT FK_R3 CONSTRAINT (IdProy) REFERENCES PROYECTO (IdProy)
+		ON DELETE RESTRICT
+		ON UPDATE RESTRICT;
+			
+	ALTER TABLE AUSPICIO
+		ADD CONSTRAINT FK_R4 FOREIGN KEY (IdProy) REFERENCES PROYECTO (IdProy)
+		ON DELETE NULL
+		ON UPDATE RESTRICT;
+
+// B. Suponga la existencia de las siguientes tuplas en las respectivas tablas (sólo se incluyen los atributos que se consideran relevantes para el ejercicio):
+    --Empleado (A, 1,…) ; (B, 2,…) ; (A, 2,…)          Proyecto: (1,…) ; (2,…) ; (3,…) 
+    --Trabaja_En (A, 1, 1, ….); (A, 2, 2, ….)             Auspicio: (2, ..., A, 2)
+  /*Indique el resultado de las siguientes operaciones teniendo en cuenta las acciones referenciales e instancias dadas. En caso de que la operación no se pueda realizar, determine qué regla/s entra/n en conflicto y cuál es la causa. De ser aceptada, comente el resultado que produciría. 
+    NOTA: en cada caso considere el efecto sobre la instancia original de la BD; es decir, los resultados no son acumulativos*/ 
+
+    -- b.1) delete from Proyecto where IdProy = 3; 
+       /* Borra existosamente porque en las tablas TRABAJA_EN y AUSPICIO no se encuentra IdProy = 3*/
+
+		-- b.2) update Proyecto set IdProy = 7 where IdProy = 3
+			/* No se puede hacer la actualizacion porque IdProy = 3 no se encuentra dentro de las tablas TRABAJA_EN y AUSPICIO. Ademas AUSPICIO tiene accion referencial RESTRICT en modificacion, por lo que rechaza todas las actualizaciones de PROYECTO */
+
+		-- b.3) delete from Proyecto where IdProy = 1
+			/* No borra exitosamente porque TRABAJA_EN tiene accion RESTRICT para el delete. En AUSPICIO no se tiene en cuenta porque no existe IdProy = 1*/
+
+		-- b.4) delete from Empleado where TipoE = A and NroE= 2
+			/* No borra exitosamente porque TRABAJA_EN y AUSPICIO tienen accion referencial RESTRICT para el delete*/
+
+		-- b.5) update TrabajaEn set IdProy= 3 where IdProy=1
+			/* Produce ERROR porque no se puede actualizar una FOREIGN KEY desde la tabla DESTINO*/
+
+		-- b.6) update Proyecto set IdProy = 5 where IdProy=2
+			/* No actualiza exitosamente porque la accion referencial para UPDATE de AUSPICIO es RESTRICT, por lo que impide actualizar el atributo en esa tabla, impidiendo a las otras porque no se puede actualizar una tabla DESTINO y otra no.*/
+
+-- C. Indique cuáles de las siguientes operaciones serían aceptadas/rechazadas por el DBMS, según se considere match: i) simple, ii) parcial, o iii) full para la RIR R4:
+		-- c.1) insert into Auspicio values (1, ‘Dell’, B, null);
+			/* MATCH SIMPLE: aceptada (NroE es NULL)
+				 MATCH PARTIAL: aceptada (TipoE no es NULL y coincide con el valor de clave TipoE = B de la tabla referenciada EMPLEADO)
+				 MATCH FULL: rechazada (no todas las FK son null y no hacen referencia a la PK completa ya que NroE no es NULL en la tabla EMPLEADO) ¿hacen referencia a la PK completa?
+			*/
+
+		-- c.2) insert into Auspicio values (3, ‘Oracle’, null, null);
+			/* MATCH SIMPLE: aceptada (TipoE y NroE son NULL)
+				 MATCH PARTIAL: rechazada (ambas columnas de la FK son nulos)
+				 MATCH FULL: aceptada (todas las columnas de la FK son null)
+			*/
+
+		-- c.3) insert into Auspicio values (5, ‘Google’, A, 3);
+			/* MATCH SIMPLE: rechazada (no hay un valor en alguna de las columnas de la FK que sea null)
+				 MATCH PARTIAL: aceptada (valor de columna TipoE coincide con el valor de clave en un registro de la tabla EMPLEADO)
+				 MATCH FULL: rechazada (todas las columnas de la FK no son null y no hacen referencia a la PK completa porque no hay un empleado con NroE=3 en la tabla referenciada EMPLEADO)
+			*/
+
+		-- c.4) insert into Auspicio values (1, ‘HP’, null, 3);
+			/* MATCH SIMPLE: aceptada (valor TipoE es null)
+				 MATCH PARTIAL: rechazada (el valor de la columna de la FK NroE no es null pero no coincide un valor de registro en la tabla EMPLEADO)
+				 MATCH FULL: rechazada (no todas las columnas de la FK son null y tampoco hacen referencia a la PK completa segun los registros de la tabla referenciada EMPLEADO)
+			*/

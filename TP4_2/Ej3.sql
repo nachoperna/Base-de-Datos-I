@@ -18,6 +18,14 @@
       (SELECT id_continente FROM continente WHERE nombre_continente = 'Europeo')))))
       ORDER BY apellido;
 
+      SELECT *
+      FROM voluntario v
+               JOIN institucion i USING (id_institucion)
+               JOIN direccion d USING (id_direccion)
+               JOIN pais p USING(id_pais)
+               JOIN continente c USING(id_continente)
+      WHERE c.nombre_continente != 'Europeo';
+
 -- 3. Liste todos los voluntarios que no pertenecen a instituciones ubicadas en el continente Europeo.
       SELECT nro_voluntario, nombre, apellido
       FROM voluntario

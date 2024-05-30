@@ -50,3 +50,9 @@ SELECT *
 FROM departamento
 GROUP BY id_departamento, id_distribuidor, nombre, calle, numero, id_ciudad, jefe_departamento HAVING COUNT(id_departamento IN
 (SELECT id_departamento FROM empleado)) < (SELECT COUNT(*)/10 FROM empleado); 
+
+SELECT d.id_departamento, d.nombre, d.id_ciudad
+FROM departamento d JOIN empleado e
+	USING(id_departamento)
+	GROUP BY d.id_departamento, d.nombre, d.id_ciudad
+		HAVING COUNT(d.) < (SELECT COUNT(*)/10 FROM empleado);

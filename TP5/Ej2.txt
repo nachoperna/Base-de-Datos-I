@@ -1,0 +1,14 @@
+- A. Muestre el resultado para cada una de las siguientes operaciones, considerando que se ejecutan en el orden dado y que son acumulables. Justifique.
+  - a.1) delete from Cliente where NroC= 1;
+    Borra exitosamente. R1 con tabla INSTALACION tiene accion referencial CASCADE para baja y R4 con tabla REFERENCIA tiene accion RESTRICT pero no se encuentra el valor de columna NroC = 1.
+
+  - a.2) update Instalacion set IdServ= ‘S5’ where IdServ= ‘S2’;
+    Modificacion rechazada. No se puede actualizar en la tabla DESTINO un valor de la FOREING KEY.
+
+  - a.3) update Cliente set Zona = ‘Z’ where Zona =  ‘D’;
+    Modificacion exitosa. En R1 con tabla INSTALACION no sucede nada porque no se encuentra el valor de FK Zona = 'D', y en la tabla REFERENCIA setea el valor de Zona en null donde Zona = 'D' porque tiene como accion referencial un SET NULL.
+
+- B. Plantee ejemplos de operaciones insert sobre la tabla REFERENCIA teniendo en cuenta los casos de datos nulos con respecto a la RIR con CLIENTE. Considere los diferentes tipos de matching (full, parcial, simple). Indique los resultados de las operaciones y justifique.
+     Nota: Utilice los datos iniciales de la BD, sin tener en cuenta los posibles efectos de a)
+
+  

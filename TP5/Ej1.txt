@@ -52,13 +52,13 @@ ALTER TABLE TRABAJA_EN
 
 		- c.2) insert into Auspicio values (3, ‘Oracle’, null, null);
 				 MATCH SIMPLE: aceptada (TipoE y NroE son NULL)
-				 MATCH PARTIAL: rechazada (ambas columnas de la FK son nulos)
+				 MATCH PARTIAL: aceptada (solo checkea columnas no nulas)
 				 MATCH FULL: aceptada (todas las columnas de la FK son null)
 			
 
 		- c.3) insert into Auspicio values (5, ‘Google’, A, 3);
-				 MATCH SIMPLE: rechazada (no hay un valor en alguna de las columnas de la FK que sea null)
-				 MATCH PARTIAL: aceptada (valor de columna TipoE coincide con el valor de clave en un registro de la tabla EMPLEADO)
+				 MATCH SIMPLE: rechazada (no hay un valor en alguna de las columnas de la FK que sea null y porque no hay una clave que corresponda)
+				 MATCH PARTIAL: rechazada (valor de columna TipoE coincide con el valor de clave en un registro de la tabla EMPLEADO pero no coincide la clave PK completa)
 				 MATCH FULL: rechazada (todas las columnas de la FK no son null y no hacen referencia a la PK completa porque no hay un empleado con NroE=3 en la tabla referenciada EMPLEADO)
 			
 

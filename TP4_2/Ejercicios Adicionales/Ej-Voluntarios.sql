@@ -63,4 +63,4 @@ FROM voluntario v JOIN tarea t USING(id_tarea) AS "Tareas de voluntario v"
 GROUP BY  v.nombre, v.apellido, v.telefono
 ORDER BY "Cantidad de tareas" DESC
 LIMIT 5;
- -- ordenar en orden DESCENDENTE segun cantidad de tareas realizadas y uso del LIMIT para obtener los primeros 5
+ 

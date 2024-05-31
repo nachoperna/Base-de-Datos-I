@@ -25,12 +25,19 @@ GROUP BY i.id_institucion, i.nombre_institucion, v.horas_aportadas HAVING COUNT(
  
 
 -- 4. Liste los datos completos de las instituciones en las que se estén ejecutando más del 10% del total de las tareas (distintas).
-SELECT i.*
+SELECT i.*, COUNT("Tareas en institucion i") AS "Cantidad tareas"
 FROM institucion i 
  JOIN voluntario v USING(id_institucion) 
  JOIN tarea t USING(id_tarea) AS "Tareas en institucion i"
-GROUP BY i.id_institucion, i.nombre_institucion, i.id_director, i.id_direccion HAVING COUNT("Tareas en institucion i") > COUNT(SELECT COUNT(*) FROM tarea)/10;
+GROUP BY i.id_institucion, i.nombre_institucion, i.id_director, i.id_direccion HAVING COUNT("Tareas en institucion i") > (SELECT DISTINCT COUNT(*) FROM tarea)/10;
  -- soy un fenomeno
+SELECT i.*
+FROM institucion 
+WHERE id_institucion IN (
+ SELECT id_institucion FROM voluntario WHERE id_tarea IN (
+ SELECT DISTINCT id_tarea FROM tarea GROUP BY id_tarea HAVING COUNT(id_tarea) > (COUNT(*)/10)));
+ 
+GROUP BY i.id_institucion, i.nombre_institucion, i.id_director, i.id_direccion HAVING COUNT("Tareas en institucion i") > (SELECT DISTINCT COUNT(*) FROM tarea)/10;
 
 -- 5. Liste el nombre y apellido de los voluntarios que pertenecen a instituciones de la provincia ‘Washington’ y donde el director de la institución ha cumplido con 2 o más tareas.
 SELECT v.nombre, v.apellido

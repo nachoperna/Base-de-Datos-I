@@ -3,7 +3,7 @@
     Borra exitosamente. R1 con tabla INSTALACION tiene accion referencial CASCADE para baja y R4 con tabla REFERENCIA tiene accion RESTRICT pero no se encuentra el valor de columna NroC = 1.
 
   - a.2) update Instalacion set IdServ= ‘S5’ where IdServ= ‘S2’;
-    Modificacion rechazada. No se puede actualizar en la tabla DESTINO un valor de la FOREING KEY.
+    Modificacion rechazada. Relacion R2 con tabla INSTALACION tiene accion referencial RESTRICT para modificacion.
 
   - a.3) update Cliente set Zona = ‘Z’ where Zona =  ‘D’;
     Modificacion exitosa. En R1 con tabla INSTALACION no sucede nada porque no se encuentra el valor de FK Zona = 'D', y en la tabla REFERENCIA setea el valor de Zona en null donde Zona = 'D' porque tiene como accion referencial un SET NULL.

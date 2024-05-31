@@ -29,7 +29,7 @@ SELECT i.*
 FROM institucion i 
  JOIN voluntario v USING(id_institucion) 
  JOIN tarea t USING(id_tarea) AS "Tareas en institucion i"
-GROUP BY i.id_institucion, i.nombre_institucion, i.id_director, i.id_direccion HAVING COUNT("Tareas en institucion i") > COUNT(t.*)/10;
+GROUP BY i.id_institucion, i.nombre_institucion, i.id_director, i.id_direccion HAVING COUNT("Tareas en institucion i") > COUNT(SELECT COUNT(*) FROM tarea)/10;
  -- soy un fenomeno
 
 -- 5. Liste el nombre y apellido de los voluntarios que pertenecen a instituciones de la provincia ‘Washington’ y donde el director de la institución ha cumplido con 2 o más tareas.

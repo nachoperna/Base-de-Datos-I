@@ -3,32 +3,46 @@ SELECT p.nombre_pais, COUNT(*) AS "Cant Voluntario +18"
 FROM pais p
 JOIN direccion d ON p.id_pais = d.id_pais
 JOIN institucion i ON d.id_direccion = i.id_direccion
-JOIN voluntario v ON i.id_institucion = v.id_institucion
-WHERE extract(year from age(current_date, v.fecha_nacimiento)) >= 18
-GROUP BY p.nombre_pais;
+GROUP BY p.nombre_pais HAVING COUNT(i.id_institucion IN (
+ SELECT v.id_institucion FROM voluntario v WHERE extract(year from age(current_date, v.fecha_nacimiento)) >= 18)) > 4;
 
 -- 2. Liste el id, nombre y apellido de los voluntarios de instituciones asentadas en el continente ‘Europeo’ y que además cumplen con el rol de director de alguna institución. Ordene el resultado alfabéticamente por apellido y nombre.
 SELECT v.nro_voluntario, v.apellido, v.nombre 
 FROM voluntario v
 JOIN institucion i ON v.id_institucion = i.id_institucion AND v.nro_voluntario = i.id_director
-JOIN direccion d ON i.id_direccion = d.id_direccion
-JOIN pais p ON d.id_pais = p.id_pais 
+JOIN direccion USING(id_direccion)
+JOIN pais p USING(id_pais) 
 JOIN continente c ON p.id_continente = c.id_continente AND c.nombre_continente = 'Europeo'
 ORDER BY apellido, nombre;
 
 -- 3. Indique el id y el nombre de las instituciones que tengan más de 4 voluntarios con tareas de no más de 3500 horas estimadas, o que las horas aportadas no superen las 4000.
 SELECT i.id_institucion, i.nombre_institucion 
 FROM institucion i 
-JOIN voluntario v ON v.id_institucion = i.id_institucion 
-JOIN tarea t ON t.id_tarea = v.id_tarea
-GROUP BY i.id_institucion, i.nombre_institucion HAVING COUNT(
- v.horas_aportadas <= 4000) > 4 OR AVG(t.min_horas+t.max_horas) <= 3500;
-  -- creo que asi tmb considera a grupos de MENOS de 4 voluntarios donde el promedio de horas de su tarea es menor a 3500
+JOIN voluntario v USING(id_institucion) 
+JOIN tarea t USING(id_tarea)
+GROUP BY i.id_institucion, i.nombre_institucion, v.horas_aportadas HAVING COUNT(
+ (t.min_horas+t.max_horas)/2 <= 3500) > 4 OR v.horas_aportadas <= 4000;
+  -- dudoso resultado / v.horas_aportadas dentro de GROUP BY porque lo pide el HAVING ¿?
 
 -- 4. Liste los datos completos de las instituciones en las que se estén ejecutando más del 10% del total de las tareas (distintas).
-SELECT *
-FROM institucion
-WHERE id_institucion IN
-(SELECT id_institucion FROM voluntario v WHERE v.id_tarea IN
-(SELECT t.id_tarea FROM tarea t GROUP BY t.id_tarea HAVING COUNT(t.id_tarea = v.id_tarea) > COUNT(*)));
- -- no funca
+SELECT i.*
+FROM institucion i 
+ JOIN voluntario v USING(id_institucion) 
+ JOIN tarea t USING(id_tarea) AS "Tareas en institucion i"
+GROUP BY i.id_institucion, i.nombre_institucion, i.id_director, i.id_direccion HAVING COUNT("Tareas en institucion i") > COUNT(t.*)/10;
+ -- soy un fenomeno
+
+-- 5. Liste el nombre y apellido de los voluntarios que pertenecen a instituciones de la provincia ‘Washington’ y donde el director de la institución ha cumplido con 2 o más tareas.
+SELECT v.nombre, v.apellido
+FROM voluntario v 
+ JOIN institucion i USING(id_institucion)
+ JOIN direccion d USING(id_direccion)
+ JOIN tarea t ON v.nro_voluntario = i.id_director AND v.id_tarea = t.id_tarea
+ JOIN historico USING(nro_voluntario)
+WHERE d.provincia = 'Washington';
+ -- anda a chequearlo re boludito 
+
+-- 6. Liste nombre, apellido y teléfono de los 5 voluntarios que han participado en la mayor cantidad de tareas.
+SELECT v.nombre, v.apellido, v.telefono
+FROM voluntario v 
+ -- ordenar en orden DESCENDENTE segun cantidad de tareas realizadas y uso del LIMIT para obtener los primeros 5

@@ -11,13 +11,21 @@
   -- sacala del medio
 
 -- 8. Obtenga los datos de los videos que han recibido entregas por parte de distribuidores nacionales y también internacionales, ordenados por razón social 
-SELECT v.*  
-FROM video v JOIN entrega e USING(id_video) JOIN distribuidor d USING(id_distribuidor)
-WHERE d.id_distribuidor IN (
-  SELECT id_distribuidor FROM nacional) AND d.id_distribuidor IN (
-  SELECT id_distribuidor FROM internacional)
-ORDER BY v.razon_social;
-  -- no retorna resultados
+(SELECT v.id_video, v.razon_social AS "v_razon_social"
+FROM video v
+	JOIN entrega e USING(id_video)
+	JOIN distribuidor d USING(id_distribuidor)
+	JOIN nacional n USING(id_distribuidor))
+	
+INTERSECT ALL
+
+(SELECT v.id_video, v.razon_social AS "v_razon_social"
+FROM video v
+	JOIN entrega e USING(id_video)
+	JOIN distribuidor d USING(id_distribuidor)
+	JOIN internacional i USING(id_distribuidor))
+	
+ORDER BY v_razon_social;
 
 -- 9. Liste id, nombre y apellido de los empleados que no son jefes de departamento. 
 SELECT e.id_empleado, e.nombre, e.apellido

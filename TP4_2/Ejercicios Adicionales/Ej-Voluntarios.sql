@@ -16,13 +16,13 @@ JOIN continente c ON p.id_continente = c.id_continente AND c.nombre_continente =
 ORDER BY apellido, nombre;
 
 -- 3. Indique el id y el nombre de las instituciones que tengan más de 4 voluntarios con tareas de no más de 3500 horas estimadas, o que las horas aportadas no superen las 4000.
-SELECT i.id_institucion, i.nombre_institucion 
+SELECT DISTINCT i.id_institucion, i.nombre_institucion 
 FROM institucion i 
 JOIN voluntario v USING(id_institucion) 
 JOIN tarea t USING(id_tarea)
 GROUP BY i.id_institucion, i.nombre_institucion, v.horas_aportadas HAVING COUNT(
  (t.min_horas+t.max_horas)/2 <= 3500) > 4 OR v.horas_aportadas <= 4000;
-  -- dudoso resultado / v.horas_aportadas dentro de GROUP BY porque lo pide el HAVING ¿?
+ 
 
 -- 4. Liste los datos completos de las instituciones en las que se estén ejecutando más del 10% del total de las tareas (distintas).
 SELECT i.*

@@ -60,6 +60,7 @@ GROUP BY v.nro_voluntario, v.nombre, v.apellido
 -- 6. Liste nombre, apellido y teléfono de los 5 voluntarios que han participado en la mayor cantidad de tareas.
 SELECT v.nombre, v.apellido, v.telefono, COUNT("Tareas de voluntario v") AS "Cantidad de tareas"
 FROM voluntario v JOIN tarea t USING(id_tarea) AS "Tareas de voluntario v"
+GROUP BY  v.nombre, v.apellido, v.telefono
 ORDER BY "Cantidad de tareas" DESC
 LIMIT 5;
  -- ordenar en orden DESCENDENTE segun cantidad de tareas realizadas y uso del LIMIT para obtener los primeros 5

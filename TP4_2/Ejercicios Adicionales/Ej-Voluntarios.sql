@@ -42,6 +42,21 @@ FROM voluntario v
 WHERE d.provincia = 'Washington';
  -- anda a chequearlo re boludito 
 
+SELECT v.nombre, v.apellido
+FROM voluntario v
+	JOIN institucion i USING(id_institucion)
+	JOIN direccion d USING(id_direccion)
+WHERE d.provincia = 'Washington'
+
+INTERSECT ALL
+
+SELECT v.nombre, v.apellido
+FROM institucion i
+	JOIN voluntario v ON i.id_director = v.nro_voluntario
+	JOIN tarea t USING(id_tarea)
+GROUP BY v.nro_voluntario, v.nombre, v.apellido
+	HAVING COUNT(t.id_tarea) > 2;
+
 -- 6. Liste nombre, apellido y teléfono de los 5 voluntarios que han participado en la mayor cantidad de tareas.
 SELECT v.nombre, v.apellido, v.telefono, COUNT("Tareas de voluntario v") AS "Cantidad de tareas"
 FROM voluntario v JOIN tarea t USING(id_tarea) AS "Tareas de voluntario v"

@@ -11,6 +11,11 @@ WHERE id_jefe IS NULL AND id_departamento IN
 (SELECT id_ciudad FROM ciudad WHERE nombre_ciudad = 'Rawalpindi'))
 ORDER BY id_empleado;
 
+SELECT e.id_empleado, e.nombre, e.apellido, e.id_jefe, c.nombre_ciudad
+FROM empleado e JOIN departamento d USING(id_departamento) JOIN ciudad c ON c.id_ciudad = d.id_ciudad AND c.nombre_ciudad = 'Rawalpindi'
+WHERE e.id_jefe IS NULL
+ORDER BY e.id_empleado;
+
 -- 11. Liste los ids y números de inscripción de los distribuidores nacionales que hayan entregado películas en idioma Español luego del año 2010.
 SELECT id_distribuidor, nro_inscripcion
 FROM nacional
@@ -27,6 +32,9 @@ WHERE codigo_pelicula IN
 (SELECT nro_entrega FROM entrega WHERE id_distribuidor NOT IN
 (SELECT id_distribuidor FROM nacional)));
 
+SELECT DISTINCT p.* 
+FROM pelicula p JOIN renglon_entrega USING(codigo_pelicula) JOIN entrega e USING(nro_entrega) JOIN distribuidor d JOIN nacional n ON n.id_distribuidor != d.id_distribuidor;
+
 -- 13. Liste el apellido y nombre de los empleados que trabajan en departamentos residentes en el país Argentina y donde el jefe de departamento posee más del 40% de comisión.
 SELECT e.nombre, e.apellido
 FROM empleado e
@@ -37,6 +45,9 @@ WHERE e.id_departamento IN
 jefe_departamento IN
 (SELECT id_empleado FROM empleado WHERE porc_comision > 40));
 -- no retorna resultados
+
+SELECT e.nombre, e.apellido
+FROM empleado e JOIN departamento d ON e.id_empleado = d.jefe_departamento AND e.porc_comision > 40 JOIN ciudad c ON c.id_ciudad = d.id_ciudad JOIN pais p ON p.id_pais = c.id_pais AND p.nombre_pais = 'ARGENTINA';
 
 -- 14. Indique los departamentos (nombre e identificador completo) que tienen más de 3 empleados con tareas con sueldo mínimo menor a 6000. Muestre el resultado ordenado por distribuidor
 SELECT d.nombre, d.id_departamento, d.id_distribuidor

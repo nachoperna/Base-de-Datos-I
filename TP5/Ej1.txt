@@ -29,7 +29,7 @@ ALTER TABLE TRABAJA_EN
       Borra existosamente porque en las tablas TRABAJA_EN y AUSPICIO no se encuentra IdProy = 3
 
 		- b.2) update Proyecto set IdProy = 7 where IdProy = 3
-			No se puede hacer la actualizacion porque IdProy = 3 no se encuentra dentro de las tablas TRABAJA_EN y AUSPICIO. Ademas AUSPICIO tiene accion referencial RESTRICT en modificacion, por lo que rechaza todas las actualizaciones de PROYECTO 
+			Modifica exitosamente porque IdProy = 3 no se encuentra cargado en las tablas destino TrabajaEn y AUSPICIO.
 
 		- b.3) delete from Proyecto where IdProy = 1
 			No borra exitosamente porque TRABAJA_EN tiene accion RESTRICT para el delete. En AUSPICIO no se tiene en cuenta porque no existe IdProy = 1

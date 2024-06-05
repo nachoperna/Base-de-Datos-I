@@ -38,7 +38,7 @@ ALTER TABLE TRABAJA_EN
 			No borra exitosamente porque TRABAJA_EN y AUSPICIO tienen accion referencial RESTRICT para el delete
 
 		- b.5) update TrabajaEn set IdProy= 3 where IdProy=1
-			Produce ERROR porque no se puede actualizar una FOREIGN KEY desde la tabla DESTINO
+			Actualiza exitosamente porque TrabajaEn tiene modificion CASCADE con la relacion R2 perteneciente a PROYECTO 
 
 		- b.6) update Proyecto set IdProy = 5 where IdProy=2
 			No actualiza exitosamente porque la accion referencial para UPDATE de AUSPICIO es RESTRICT, por lo que impide actualizar el atributo en esa tabla, impidiendo a las otras porque no se puede actualizar una tabla DESTINO y otra no.

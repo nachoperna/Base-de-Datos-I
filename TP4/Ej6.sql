@@ -20,6 +20,6 @@ FROM "unc_esq_voluntario"."voluntario"
 GROUP BY id_tarea;
 
 -- 5. Se quiere conocer los coordinadores que tienen a su cargo menos de 3 voluntarios dentro de cada institución.
-SELECT id_coordinador, COUNT(*) AS "Cantidad voluntarios"
-FROM "unc_esq_voluntario"."voluntario"
-GROUP BY id_coordinador HAVING COUNT(*) <= 3;
+SELECT id_coordinador, id_institucion, COUNT(id_institucion) AS "Cantidad de voluntarios"
+FROM voluntario
+GROUP BY id_coordinador, id_institucion HAVING COUNT(id_institucion) < 3;

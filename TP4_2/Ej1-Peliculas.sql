@@ -1,7 +1,7 @@
 -- 9. Para cada uno de los empleados indique su id, nombre y apellido junto con el id, nombre y apellido de su jefe, en caso de tenerlo
-SELECT e.id_empleado, e.nombre||', '||e.apellido AS "Nombre Empleado", e.id_jefe, e1.nombre||', '||e1.apellido AS "Nombre Jefe"
-FROM empleado e JOIN empleado e1 ON e1.id_empleado = e.id_jefe
-WHERE e.id_jefe != e.id_empleado;
+SELECT 'ID:'||e1.id_empleado||'-'||e1.nombre||', '||e1.apellido AS "Empleado", 'ID:'||e2.id_empleado||'-'||e2.nombre||', '||e2.apellido AS "Jefe", e1.id_jefe AS "id jefe de empleado"
+FROM empleado e1 JOIN empleado e2 ON e1.id_jefe = e2.id_empleado
+WHERE e1.id_jefe IS NOT NULL;
 
 -- 10. Determine los ids, nombres y apellidos de los empleados que son jefes y cuyos departamentos donde se desempeñan se encuentren en la ciudad ‘Rawalpindi’. Ordene los datos por los ids
 SELECT id_empleado, nombre, apellido
@@ -12,17 +12,19 @@ WHERE id_jefe IS NULL AND id_departamento IN
 ORDER BY id_empleado;
 
 SELECT e.id_empleado, e.nombre, e.apellido, e.id_jefe, c.nombre_ciudad
-FROM empleado e JOIN departamento d USING(id_departamento) JOIN ciudad c ON c.id_ciudad = d.id_ciudad AND c.nombre_ciudad = 'Rawalpindi'
+FROM empleado e JOIN departamento d USING(id_departamento) JOIN ciudad c ON c.id_ciudad=d.id_ciudad AND c.nombre_ciudad = 'Rawalpindi'
 WHERE e.id_jefe IS NULL
-ORDER BY e.id_empleado;
+ORDER BY e.id_empleado ASC;
+ -- en este caso no usamos la clave compuesta de departamento porque los departamentos son unicos en cada ciudad, por lo que solo con el id_departamento basta para linkear una ciudad.
 
 -- 11. Liste los ids y números de inscripción de los distribuidores nacionales que hayan entregado películas en idioma Español luego del año 2010.
 SELECT id_distribuidor, nro_inscripcion
 FROM nacional
 WHERE id_distribuidor IN
-(SELECT id_distribuidor FROM entrega WHERE nro_entrega IN
+(SELECT id_distribuidor FROM distribuidor WHERE id_distribuidor IN
+(SELECT id_distribuidor FROM entrega WHERE extract(year from fecha_entrega)>2010 AND nro_entrega IN
 (SELECT nro_entrega FROM renglon_entrega WHERE codigo_pelicula IN
-(SELECT codigo_pelicula FROM pelicula WHERE idioma = 'Español')) AND extract(year from fecha_entrega) > 2010);
+(SELECT codigo_pelicula FROM pelicula WHERE idioma = 'Español'))));
 
 -- 12. Liste las películas que nunca han sido entregadas por un distribuidor nacional.
 SELECT * 

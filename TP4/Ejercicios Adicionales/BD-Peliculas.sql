@@ -4,7 +4,8 @@ FROM "unc_esq_peliculas"."empleado"
 WHERE (e_mail LIKE '%gmail%') AND sueldo > 1000;
 
 -- 9. SELECT codigo_pelicula, cantidad
-FROM "unc_esq_peliculas"."renglon_entrega"
+SELECT codigo_pelicula
+FROM renglon_entrega
 WHERE cantidad BETWEEN 3 AND 5;
 
 -- 10. Liste la cantidad de películas que hay por cada idioma. 

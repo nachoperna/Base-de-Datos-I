@@ -30,7 +30,7 @@ FROM pais
 WHERE id_pais NOT IN 
 (SELECT id_pais FROM direccion) -- si el id_pais no se encuentra dentro de la tabla de direcciones significa que nunca hubo una institucion en ese pais, por lo tanto ningun voluntario 
 ORDER BY nombre_pais;
-
+  -- creo que esta mal
 SELECT nombre_pais, id_pais
 FROM pais
 WHERE id_pais NOT IN 
@@ -38,6 +38,14 @@ WHERE id_pais NOT IN
 (SELECT id_direccion FROM institucion WHERE id_institucion NOT IN
 (SELECT id_institucion FROM historico)))
 ORDER BY nombre_pais;
+  -- creo que esta mal
+SELECT nombre_pais
+FROM pais
+WHERE id_pais IN
+(SELECT id_pais FROM direccion WHERE id_direccion IN
+(SELECT id_direccion FROM institucion WHERE id_institucion NOT IN
+(SELECT id_institucion FROM historico)))
+ORDER BY nombre_pais ASC;
 
 -- 5. Indique los datos de las tareas que se han desarrollado históricamente y que no se están desarrollando actualmente.
 SELECT *
@@ -54,19 +62,26 @@ WHERE id_tarea IN
 (SELECT id_tarea FROM voluntario WHERE id_institucion IN
 (SELECT id_institucion FROM institucion WHERE id_direccion IN 
 (SELECT id_direccion FROM direccion WHERE ciudad = 'Munich')))
-ORDER BY id_tarea HAVING COUNT(*)=1;
+GROUP BY id_tarea HAVING COUNT(*)=1;
+
+SELECT t.id_tarea, t.nombre_tarea, t.max_horas
+FROM tarea t JOIN voluntario v ON t.id_tarea = v.id_tarea
+WHERE v.id_institucion IN
+(SELECT id_institucion FROM institucion WHERE id_direccion IN
+(SELECT id_direccion FROM direccion WHERE ciudad = 'Munich'))
+GROUP BY t.id_tarea HAVING COUNT(v.id_tarea) = 1;
 
 -- 7. Indique los datos de las instituciones que poseen director, donde históricamente se hayan desarrollado tareas que actualmente las estén ejecutando voluntarios de otras instituciones.
-SELECT *
+SELECT i.*
 FROM institucion i
-WHERE id_director IS NOT NULL AND id_institucion IN 
+WHERE i.id_director IS NOT NULL AND i.id_institucion IN
 (SELECT id_institucion FROM historico WHERE id_tarea IN
-(SELECT id_tarea FROM voluntario WHERE id_institucion != i.id_institucion));
+(SELECT v.id_tarea FROM voluntario v WHERE v.id_institucion != i.id_institucion));
 
 SELECT DISTINCT i.*
 FROM institucion i JOIN historico h USING(id_institucion) JOIN voluntario v ON h.id_tarea = v.id_tarea AND v.id_institucion != i.id_institucion;
 
 -- 8. Listar los datos completos de todas las instituciones junto con el nombre y apellido de su director.
-SELECT *, v.apellido||', '||v.nombre AS "Director"
+SELECT i.*, v.apellido||', '||v.nombre AS "Director"
 FROM institucion i JOIN voluntario v ON v.nro_voluntario = i.id_director
 WHERE id_director IS NOT NULL;

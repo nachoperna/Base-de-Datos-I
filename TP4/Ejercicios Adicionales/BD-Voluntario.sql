@@ -9,6 +9,10 @@ SELECT apellido, id_tarea, horas_aportadas
 FROM "unc_esq_voluntario"."voluntario"
 WHERE (id_tarea = 'SA_REP' OR id_tarea = 'ST_CLERK') AND (horas_aportadas != 2500 OR horas_aportadas != 3500 OR horas_aportadas != 7000);
 
+SELECT apellido, id_tarea, horas_aportadas
+FROM voluntario
+WHERE id_tarea IN ('SA_REP', 'ST_CLERK') AND horas_aportadas NOT IN (2500, 3500, 7000);
+
 -- 3. Muestre los datos completos de las instituciones que posean director. 
 SELECT *
 FROM "unc_esq_voluntario"."institucion"

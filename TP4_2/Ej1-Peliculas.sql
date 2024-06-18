@@ -34,38 +34,45 @@ WHERE codigo_pelicula IN
 (SELECT nro_entrega FROM entrega WHERE id_distribuidor NOT IN
 (SELECT id_distribuidor FROM nacional)));
 
-SELECT DISTINCT p.* 
-FROM pelicula p JOIN renglon_entrega USING(codigo_pelicula) JOIN entrega e USING(nro_entrega) JOIN distribuidor d JOIN nacional n ON n.id_distribuidor != d.id_distribuidor;
-
+SELECT DISTINCT p.*
+FROM pelicula p
+	JOIN renglon_entrega r USING(codigo_pelicula)
+	JOIN entrega e USING(nro_entrega)
+	JOIN distribuidor d USING(id_distribuidor)
+	LEFT JOIN nacional n USING(id_distribuidor)
+WHERE n.id_distribuidor IS NULL;
+  -- no entiendo muy bien como funciona esta consulta
 -- 13. Liste el apellido y nombre de los empleados que trabajan en departamentos residentes en el país Argentina y donde el jefe de departamento posee más del 40% de comisión.
-SELECT e.nombre, e.apellido
-FROM empleado e
-WHERE e.id_departamento IN
-(SELECT id_departamento FROM departamento WHERE id_ciudad IN
+SELECT nombre, apellido, id_empleado
+FROM empleado
+WHERE (id_departamento, id_distribuidor) IN
+(SELECT id_departamento, id_distribuidor FROM departamento WHERE id_ciudad IN
 (SELECT id_ciudad FROM ciudad WHERE id_pais IN
-(SELECT id_pais FROM pais WHERE nombre_pais = 'Argentina')) AND
-jefe_departamento IN
-(SELECT id_empleado FROM empleado WHERE porc_comision > 40));
--- no retorna resultados
+(SELECT id_pais FROM pais WHERE lower(nombre_pais) = 'argentina')))
+ AND 
+id_jefe IN 
+(SELECT id_empleado FROM empleado WHERE porc_comision > 40);
 
-SELECT e.nombre, e.apellido
-FROM empleado e JOIN departamento d ON e.id_empleado = d.jefe_departamento AND e.porc_comision > 40 JOIN ciudad c ON c.id_ciudad = d.id_ciudad JOIN pais p ON p.id_pais = c.id_pais AND p.nombre_pais = 'ARGENTINA';
+SELECT DISTINCT e.nombre, e.apellido
+FROM empleado e JOIN departamento USING(id_departamento,id_distribuidor) JOIN ciudad USING(id_ciudad) JOIN pais p USING(id_pais)
+WHERE lower(p.nombre_pais)='argentina' AND e.id_jefe IN
+(SELECT id_empleado FROM empleado WHERE porc_comision > 40);
 
 -- 14. Indique los departamentos (nombre e identificador completo) que tienen más de 3 empleados con tareas con sueldo mínimo menor a 6000. Muestre el resultado ordenado por distribuidor
+SELECT nombre, id_departamento, id_distribuidor
+FROM departamento
+WHERE (id_departamento,id_distribuidor) IN
+(SELECT id_departamento, id_distribuidor FROM empleado WHERE id_tarea IN
+(SELECT id_tarea FROM tarea WHERE sueldo_minimo < 6000))
+GROUP BY nombre, id_departamento, id_distribuidor HAVING COUNT(*) > 3
+ORDER BY id_distribuidor;
+
 SELECT d.nombre, d.id_departamento, d.id_distribuidor
-  FROM departamento d JOIN empleado e
-  USING(id_departamento) JOIN tarea t ON e.id_tarea = t.id_tarea AND t.sueldo_minimo < 6000
-  GROUP BY e.id_departamento, d.nombre, d.id_departamento, d.id_distribuidor HAVING COUNT(*) > 3
-  ORDER BY d.id_distribuidor;
+FROM departamento d JOIN empleado e USING(id_departamento,id_distribuidor) JOIN tarea t USING(id_tarea)
+WHERE t.sueldo_minimo < 6000
+GROUP BY d.nombre, d.id_departamento, d.id_distribuidor, t.id_tarea HAVING COUNT(*) > 3;
 
 -- 15. Liste los datos de los departamentos en los que trabajan menos del 10 % de los empleados que hay registrados
-SELECT *
-FROM departamento
-GROUP BY id_departamento, id_distribuidor, nombre, calle, numero, id_ciudad, jefe_departamento HAVING COUNT(id_departamento IN
-(SELECT id_departamento FROM empleado)) < (SELECT COUNT(*)/10 FROM empleado); 
-
-SELECT d.id_departamento, d.nombre, d.id_ciudad
-FROM departamento d JOIN empleado e
-	USING(id_departamento)
-	GROUP BY d.id_departamento, d.nombre, d.id_ciudad
-		HAVING COUNT(d.) < (SELECT COUNT(*)/10 FROM empleado);
+SELECT d.*
+FROM departamento d JOIN empleado e USING(id_departamento,id_distribuidor)
+GROUP BY d.id_departamento, d.id_distribuidor HAVING COUNT(e.*) < (SELECT COUNT(*)/10 FROM empleado);

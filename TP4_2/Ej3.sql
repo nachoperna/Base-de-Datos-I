@@ -50,7 +50,13 @@
       (SELECT id_pais FROM pais WHERE id_continente IN
       (SELECT id_continente FROM continente WHERE nombre_continente != 'Europeo'))))
       ORDER BY apellido;
-      
+
+      SELECT * FROM voluntario v WHERE EXISTS
+      (SELECT 1 FROM institucion i WHERE i.id_institucion=v.id_institucion AND EXISTS
+      (SELECT 1 FROM direccion d WHERE d.id_direccion=i.id_direccion AND EXISTS
+      (SELECT 1 FROM pais p WHERE p.id_pais=d.id_pais AND NOT EXISTS
+      (SELECT 1 FROM continente c WHERE c.id_continente=p.id_continente AND lower(c.nombre_continente)='europeo'))));
+
 -- 4. Indique los voluntarios que históricamente hayan trabajado para todas las instituciones, ordenando el resultado por nombre de voluntario.
       SELECT v.*
       FROM voluntario v
@@ -63,6 +69,9 @@
             WHERE v.id_institucion = h.id_institucion
       )
       ORDER BY v.nombre;
-
+       -- posiblemente mal
 -- 5. Determine cuáles tareas se están ejecutando en todas las instituciones.
-      
+      SELECT DISTINCT i.id_institucion, t.nombre_tarea 
+      FROM institucion i 
+       JOIN voluntario v USING(id_institucion) 
+       JOIN tarea t USING(id_tarea);

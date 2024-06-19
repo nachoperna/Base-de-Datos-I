@@ -75,4 +75,4 @@ GROUP BY d.nombre, d.id_departamento, d.id_distribuidor, t.id_tarea HAVING COUNT
 -- 15. Liste los datos de los departamentos en los que trabajan menos del 10 % de los empleados que hay registrados
 SELECT d.*
 FROM departamento d JOIN empleado e USING(id_departamento,id_distribuidor)
-GROUP BY d.id_departamento, d.id_distribuidor HAVING COUNT(e.*) < (SELECT COUNT(*)/10 FROM empleado);
+GROUP BY d.id_departamento, d.id_distribuidor HAVING COUNT(e.*) < (SELECT COUNT(*) FROM empleado)/10;

@@ -43,20 +43,13 @@ FROM pelicula p
 WHERE n.id_distribuidor IS NULL;
   -- no entiendo muy bien como funciona esta consulta
 -- 13. Liste el apellido y nombre de los empleados que trabajan en departamentos residentes en el país Argentina y donde el jefe de departamento posee más del 40% de comisión.
-SELECT nombre, apellido, id_empleado
-FROM empleado
-WHERE (id_departamento, id_distribuidor) IN
-(SELECT id_departamento, id_distribuidor FROM departamento WHERE id_ciudad IN
-(SELECT id_ciudad FROM ciudad WHERE id_pais IN
-(SELECT id_pais FROM pais WHERE lower(nombre_pais) = 'argentina')))
- AND 
-id_jefe IN 
-(SELECT id_empleado FROM empleado WHERE porc_comision > 40);
-
-SELECT DISTINCT e.nombre, e.apellido
-FROM empleado e JOIN departamento USING(id_departamento,id_distribuidor) JOIN ciudad USING(id_ciudad) JOIN pais p USING(id_pais)
-WHERE lower(p.nombre_pais)='argentina' AND e.id_jefe IN
-(SELECT id_empleado FROM empleado WHERE porc_comision > 40);
+SELECT e.nombre, e.apellido, p.nombre_pais, d.jefe_departamento, j.id_empleado, j.porc_comision
+FROM empleado e 
+	JOIN departamento d USING(id_departamento,id_distribuidor) 
+	JOIN ciudad c USING(id_ciudad) 
+	JOIN pais p USING(id_pais) 
+	JOIN empleado j ON d.jefe_departamento = j.id_empleado
+WHERE upper(p.nombre_pais) = 'ARGENTINA' AND j.porc_comision > 40;
 
 -- 14. Indique los departamentos (nombre e identificador completo) que tienen más de 3 empleados con tareas con sueldo mínimo menor a 6000. Muestre el resultado ordenado por distribuidor
 SELECT nombre, id_departamento, id_distribuidor
